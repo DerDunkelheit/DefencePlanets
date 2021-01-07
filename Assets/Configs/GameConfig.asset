@@ -15,17 +15,17 @@ MonoBehaviour:
   asteroidParametersConfig:
     minMoveSpeed: 4
     maxMoveSpeed: 6
-    minLeftRotationSpeed: -25
-    maxLeftRotationSpeed: -100
-    minRightRotationSpeed: 25
-    maxRightRotationSpeed: 100
+    minLeftRotationSpeed: -40
+    maxLeftRotationSpeed: -150
+    minRightRotationSpeed: 40
+    maxRightRotationSpeed: 150
   asteroidSpawnerConfig:
     possibleAsteroids:
     - {fileID: 1832519651014752025, guid: 78d7a115db4002146a24e832d30ac04d, type: 3}
     - {fileID: 7094364156034167506, guid: 07769334938c07e4a9634c7dce63bcc0, type: 3}
     - {fileID: 7094364156034167506, guid: d67a324a10b525f48bef4039dc58d773, type: 3}
     minTimeToSpawn: 1
-    maxTimeToSpawn: 4
+    maxTimeToSpawn: 3
     minAdditionalToSpawnSide: -19
     maxAdditionalToSpawnSide: 19
   powerUpSpawnerConfig:
@@ -35,3 +35,5 @@ MonoBehaviour:
     maxTimeToSpawn: 15
     maximumXRange: 17
     maximumYRange: 12
+  powerUpConfig:
+    powerUpDuration: 10

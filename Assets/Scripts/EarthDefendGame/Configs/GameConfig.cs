@@ -36,11 +36,18 @@ namespace EarthDefendGame.Configs
         public float maximumYRange = 12f;
     }
 
+    [System.Serializable]
+    public class PowerUpConfig
+    {
+        public float powerUpDuration = 10;
+    }
+
     [CreateAssetMenu(fileName = "GameConfig", menuName = "Configs/GameConfig")]
     public class GameConfig : ScriptableObject
     {
         public AsteroidParametersConfig asteroidParametersConfig;
         public AsteroidSpawnerConfig asteroidSpawnerConfig;
         public PowerUpSpawnerConfig powerUpSpawnerConfig;
+        public PowerUpConfig powerUpConfig;
     }
 }
