@@ -37,9 +37,15 @@ namespace EarthDefendGame.MainMenuScripts
             startLavaLevelButton.onButtonPressed -= HandlePressedButton;
         }
 
+        //TODO: probably i have to create an event and call it here.
         private void HandlePressedButton(InfinityLevelTypes levelType)
         {
             MainMenuController.sceneController.StartInfinityLevel(levelType);
+        }
+
+        private void OnDestroy()
+        {
+            Unsubscribe();
         }
     }
 }
