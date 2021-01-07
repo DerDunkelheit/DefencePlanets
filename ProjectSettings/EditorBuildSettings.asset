@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/EarthSceneInfinity.unity
+    path: Assets/Scenes/InfinityLevels/EarthSceneInfinity.unity
     guid: 225a94c8034c2c14ab818d7346006789
   m_configObjects: {}
