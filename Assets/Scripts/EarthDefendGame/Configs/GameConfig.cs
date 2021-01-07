@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using EarthDefendGame.Asteroids;
 using EarthDefendGame.PlayerBonuses;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace EarthDefendGame.Configs
     [System.Serializable]
     public class AsteroidSpawnerConfig
     {
+        public List<BaseAsteroid> possibleAsteroids = new List<BaseAsteroid>();
         public float minTimeToSpawn = 1f;
         public float maxTimeToSpawn = 4f;
         public float minAdditionalToSpawnSide = -10;
