@@ -43,7 +43,7 @@ namespace EarthDefendGame.GameComponents
 
         private void Start()
         {
-            config = GameController.instance.GameConfig.powerUpConfig;
+            config = GameController.instance.gameConfig.powerUpConfig;
         }
 
         private void Update()

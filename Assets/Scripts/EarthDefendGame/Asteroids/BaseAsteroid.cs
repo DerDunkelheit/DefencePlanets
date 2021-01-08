@@ -22,7 +22,7 @@ namespace EarthDefendGame.Asteroids
 
         protected virtual void Awake()
         {
-            config = GameController.instance.GameConfig.asteroidParametersConfig;
+            config = GameController.instance.gameConfig.asteroidParametersConfig;
             damageComponent = this.GetComponent<IDamageable>();
             damageComponent.DeathEvent += UpdatePlayerCount;
             planetPosition = GameObject.FindWithTag("Player").transform.position;
@@ -58,7 +58,7 @@ namespace EarthDefendGame.Asteroids
 
         private void UpdatePlayerCount()
         {
-            GameController.PlanetController.IncreaseKillCount();
+            GameController.planetController.IncreaseKillCount();
         }
 
         private void OnTriggerEnter2D(Collider2D other)

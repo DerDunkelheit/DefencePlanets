@@ -13,7 +13,7 @@ namespace EarthDefendGame.GameControllers
 
         private void Awake()
         {
-            config = GameController.instance.GameConfig.powerUpSpawnerConfig;
+            config = GameController.instance.gameConfig.powerUpSpawnerConfig;
         }
 
         private void Start()
@@ -23,12 +23,12 @@ namespace EarthDefendGame.GameControllers
 
         protected override void Subscribe()
         {
-            GameController.PlanetController.PlanetDestroyEven += DisableSpawningRoutine;
+            GameController.planetController.PlanetDestroyEven += DisableSpawningRoutine;
         }
 
         protected override void Unsubscribe()
         {
-            GameController.PlanetController.PlanetDestroyEven -= DisableSpawningRoutine;
+            GameController.planetController.PlanetDestroyEven -= DisableSpawningRoutine;
         }
 
         private IEnumerator SpawningRoutine()

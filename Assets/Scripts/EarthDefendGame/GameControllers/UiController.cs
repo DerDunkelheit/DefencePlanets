@@ -21,30 +21,30 @@ namespace EarthDefendGame.GameControllers
         {
             base.Subscribe();
             
-            GameController.PlanetController.KillCountUpdateEvent += OnPlayerScoreUpdated;
-            GameController.PlanetController.PlanetDestroyEven += ShowDeathPanel;
-            GameController.PlanetController.PowerUpPickUpedEvent += UpdatePowerUpDurationAmount;
-            GameController.PlanetController.PowerUpEndedEvent += TurnOffPowerUpObject;
+            GameController.planetController.KillCountUpdateEvent += OnPlayerScoreUpdated;
+            GameController.planetController.PlanetDestroyEven += ShowDeathPanel;
+            GameController.planetController.PowerUpPickUpedEvent += UpdatePowerUpDurationAmount;
+            GameController.planetController.PowerUpEndedEvent += TurnOffPowerUpObject;
         }
 
         protected override void Unsubscribe()
         {
-            GameController.PlanetController.KillCountUpdateEvent -= OnPlayerScoreUpdated;
-            GameController.PlanetController.PlanetDestroyEven -= ShowDeathPanel;
-            GameController.PlanetController.PowerUpPickUpedEvent -= UpdatePowerUpDurationAmount;
-            GameController.PlanetController.PowerUpEndedEvent -= TurnOffPowerUpObject;
+            GameController.planetController.KillCountUpdateEvent -= OnPlayerScoreUpdated;
+            GameController.planetController.PlanetDestroyEven -= ShowDeathPanel;
+            GameController.planetController.PowerUpPickUpedEvent -= UpdatePowerUpDurationAmount;
+            GameController.planetController.PowerUpEndedEvent -= TurnOffPowerUpObject;
             
             base.Unsubscribe();
         }
 
         public void UpdateHealthAmount()
         {
-            healthImage.DOFillAmount(GameController.PlanetController.CurrentHealth / GameController.PlanetController.MaxHealth, 0.25f);
+            healthImage.DOFillAmount(GameController.planetController.CurrentHealth / GameController.planetController.MaxHealth, 0.25f);
         }
 
         private void OnPlayerScoreUpdated()
         {
-            playerScoreText.text = $"Score: {GameController.PlanetController.KillCount}";
+            playerScoreText.text = $"Score: {GameController.planetController.KillCount}";
         }
 
         private void UpdatePowerUpDurationAmount()
@@ -52,7 +52,7 @@ namespace EarthDefendGame.GameControllers
             powerUpDuration.SetActive(true);
             powerUpDurationImage.fillAmount = 1;
             powerUpDurationTween?.Kill();
-            powerUpDurationTween = powerUpDurationImage.DOFillAmount(0, GameController.instance.GameConfig.powerUpConfig.powerUpDuration);
+            powerUpDurationTween = powerUpDurationImage.DOFillAmount(0, GameController.instance.gameConfig.powerUpConfig.powerUpDuration);
         }
 
         private void TurnOffPowerUpObject()

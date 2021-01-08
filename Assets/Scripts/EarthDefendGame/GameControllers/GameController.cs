@@ -12,11 +12,11 @@ namespace EarthDefendGame.GameControllers
     {
         public static GameController instance;
         public static AsteroidSpawnerController asteroidSpawnerController;
-        public static PlanetController PlanetController;
-        public static UiController UiController;
-        public static SceneController SceneController;
+        public static PlanetController planetController;
+        public static UiController uiController;
+        public static SceneController sceneController;
 
-        public GameConfig GameConfig;
+        public GameConfig gameConfig;
 
         private List<BaseController> controllers = new List<BaseController>();
 
@@ -32,9 +32,9 @@ namespace EarthDefendGame.GameControllers
             }
             
             asteroidSpawnerController = this.GetComponent<AsteroidSpawnerController>();
-            PlanetController = GameObject.FindWithTag("Player").GetComponent<PlanetController>();
-            UiController = this.GetComponent<UiController>();
-            SceneController = this.GetComponent<SceneController>();
+            planetController = GameObject.FindWithTag("Player").GetComponent<PlanetController>();
+            uiController = this.GetComponent<UiController>();
+            sceneController = this.GetComponent<SceneController>();
 
             controllers = new List<BaseController>(this.GetComponents<BaseController>());
             InitAllControllers();

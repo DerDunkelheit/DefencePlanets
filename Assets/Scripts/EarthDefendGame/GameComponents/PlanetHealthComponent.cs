@@ -62,7 +62,7 @@ namespace EarthDefendGame.GameComponents
         
         private void OnHealthChanged()
         {
-            GameController.UiController.UpdateHealthAmount();
+            GameController.uiController.UpdateHealthAmount();
         }
 
         private void OnDestroy()

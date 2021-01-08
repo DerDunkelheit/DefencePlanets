@@ -13,7 +13,7 @@ namespace EarthDefendGame.PlayerBonuses
         protected override void PickUp()
         {
             Destroy(this.gameObject);
-            GameController.PlanetController.ActivePowerUp(tripleGun);
+            GameController.planetController.ActivePowerUp(tripleGun);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
