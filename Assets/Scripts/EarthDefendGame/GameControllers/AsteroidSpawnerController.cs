@@ -21,14 +21,14 @@ namespace EarthDefendGame.GameControllers
             config = GameController.instance.gameConfig.asteroidSpawnerConfig;
             spawningRoutine = StartCoroutine(SpawnAsteroidRoutine());
         }
-        
+
         protected override void Subscribe()
         {
             base.Subscribe();
-            
+
             GameController.planetController.PlanetDestroyEven += StopSpawningAsteroids;
         }
-        
+
         private void StopSpawningAsteroids()
         {
             StopCoroutine(spawningRoutine);
@@ -39,7 +39,10 @@ namespace EarthDefendGame.GameControllers
             while (true)
             {
                 yield return new WaitForSeconds(Random.Range(config.minTimeToSpawn, config.maxTimeToSpawn));
-                SpawnAsteroid();
+                if (isActive)
+                {
+                    SpawnAsteroid();
+                }
             }
         }
 
@@ -83,7 +86,7 @@ namespace EarthDefendGame.GameControllers
         protected override void Unsubscribe()
         {
             GameController.planetController.PlanetDestroyEven -= StopSpawningAsteroids;
-            
+
             base.Unsubscribe();
         }
     }

@@ -36,7 +36,10 @@ namespace EarthDefendGame.GameControllers
             while (true)
             {
                 yield return new WaitForSeconds(Random.Range(config.minTimeToSpawn, config.maxTimeToSpawn));
-                SpawnPowerUp();
+                if (isActive)
+                {
+                    SpawnPowerUp();   
+                }
             }
         }
 
@@ -52,6 +55,5 @@ namespace EarthDefendGame.GameControllers
         {
             StopCoroutine(currentCoroutine);
         }
-        
     }
 }

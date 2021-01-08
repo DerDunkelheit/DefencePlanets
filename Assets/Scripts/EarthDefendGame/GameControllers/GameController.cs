@@ -30,7 +30,7 @@ namespace EarthDefendGame.GameControllers
             {
                 Destroy(this.gameObject);
             }
-            
+
             asteroidSpawnerController = this.GetComponent<AsteroidSpawnerController>();
             planetController = GameObject.FindWithTag("Player").GetComponent<PlanetController>();
             uiController = this.GetComponent<UiController>();
@@ -38,6 +38,7 @@ namespace EarthDefendGame.GameControllers
 
             controllers = new List<BaseController>(this.GetComponents<BaseController>());
             InitAllControllers();
+            EnableAllControllers();
         }
 
         private void InitAllControllers()
@@ -45,6 +46,22 @@ namespace EarthDefendGame.GameControllers
             foreach (var controller in controllers)
             {
                 controller.Init();
+            }
+        }
+
+        public void EnableAllControllers()
+        {
+            foreach (var controller in controllers)
+            {
+                controller.EnableController();
+            }
+        }
+
+        public void DisableControllers()
+        {
+            foreach (var controller in controllers)
+            {
+               controller.DisableController();   
             }
         }
     }
