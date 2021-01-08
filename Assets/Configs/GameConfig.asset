@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   asteroidParametersConfig:
     minMoveSpeed: 4
-    maxMoveSpeed: 6
+    maxMoveSpeed: 7
     minLeftRotationSpeed: -40
     maxLeftRotationSpeed: -150
     minRightRotationSpeed: 40
