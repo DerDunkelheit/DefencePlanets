@@ -8,7 +8,6 @@ namespace EarthDefendGame.GameControllers
 {
     public class AsteroidSpawnerController : BaseController
     {
-        [SerializeField] private List<GameObject> asteroidPrefabs = new List<GameObject>();
         [SerializeField] private Transform topSpawnPoint = null;
         [SerializeField] private Transform leftSpawnPoint = null;
         [SerializeField] private Transform bottomSpawnPoint = null;
@@ -53,28 +52,28 @@ namespace EarthDefendGame.GameControllers
             {
                 case 0:
                     Debug.Log($"Spawning at top");
-                    Instantiate(asteroidPrefabs[Random.Range(0, asteroidPrefabs.Count)],
+                    Instantiate(config.possibleAsteroids[Random.Range(0, config.possibleAsteroids.Count)],
                         new Vector3(topSpawnPoint.position.x + additionalRange, topSpawnPoint.position.y, 0),
                         Quaternion.identity);
                     break;
 
                 case 1:
                     Debug.Log($"Spawning at left");
-                    Instantiate(asteroidPrefabs[Random.Range(0, asteroidPrefabs.Count)],
+                    Instantiate(config.possibleAsteroids[Random.Range(0, config.possibleAsteroids.Count)],
                         new Vector3(leftSpawnPoint.position.x, leftSpawnPoint.position.y + additionalRange, 0),
                         Quaternion.identity);
                     break;
 
                 case 2:
                     Debug.Log($"Spawning at bottom");
-                    Instantiate(asteroidPrefabs[Random.Range(0, asteroidPrefabs.Count)],
+                    Instantiate(config.possibleAsteroids[Random.Range(0, config.possibleAsteroids.Count)],
                         new Vector3(bottomSpawnPoint.position.x + additionalRange, bottomSpawnPoint.position.y, 0),
                         Quaternion.identity);
                     break;
 
                 case 3:
                     Debug.Log($"Spawning at right");
-                    Instantiate(asteroidPrefabs[Random.Range(0, asteroidPrefabs.Count)],
+                    Instantiate(config.possibleAsteroids[Random.Range(0, config.possibleAsteroids.Count)],
                         new Vector3(rightSpawnPoint.position.x, rightSpawnPoint.position.y + additionalRange, 0),
                         Quaternion.identity);
                     break;

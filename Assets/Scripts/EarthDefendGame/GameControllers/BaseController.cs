@@ -5,7 +5,7 @@ namespace EarthDefendGame.GameControllers
 {
     public abstract class BaseController : MonoBehaviour
     {
-        public  void Init()
+        public void Init()
         {
             Subscribe();
         }
