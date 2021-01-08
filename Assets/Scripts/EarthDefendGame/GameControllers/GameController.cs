@@ -15,6 +15,7 @@ namespace EarthDefendGame.GameControllers
         public static PlanetController planetController;
         public static UiController uiController;
         public static SceneController sceneController;
+        public static TextPanelController textPanelController;
 
         public GameConfig gameConfig;
 
@@ -35,6 +36,7 @@ namespace EarthDefendGame.GameControllers
             planetController = GameObject.FindWithTag("Player").GetComponent<PlanetController>();
             uiController = this.GetComponent<UiController>();
             sceneController = this.GetComponent<SceneController>();
+            textPanelController = this.GetComponent<TextPanelController>();
 
             controllers = new List<BaseController>(this.GetComponents<BaseController>());
             InitAllControllers();
