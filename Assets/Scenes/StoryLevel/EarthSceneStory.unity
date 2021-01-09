@@ -813,8 +813,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textPanel: {fileID: 949383790}
+  displayingText: {fileID: 352430965}
+  continueButton: {fileID: 2146074480}
   hideShowAnimDuration: 0.4
-  buttonThreshold: -130
+  bottomThreshold: -130
 --- !u!1 &487180658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1394,6 +1396,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3dfd43d046b6c4c827a7fd863f0fab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  introductionPhrases: {fileID: 11400000, guid: 51e14bdbb84ea794c92fd70c52ac915c,
+    type: 2}
 --- !u!4 &1085300016
 Transform:
   m_ObjectHideFlags: 0
