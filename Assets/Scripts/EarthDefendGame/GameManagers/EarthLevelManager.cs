@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using EarthDefendGame.GameControllers;
 using EarthDefendGame.TextPhrases;
 using UnityEngine;
@@ -36,6 +37,20 @@ namespace EarthDefendGame.GameManagers
         {
             GameController.textPanelController.HideTextPanel();
             GameController.instance.EnableAllControllers();
+
+            ActiveLevelTimer();
+        }
+
+        private void ActiveLevelTimer()
+        {
+            var levelDuration = GameController.instance.gameConfig.levelDuration;
+            StartCoroutine(LevelDurationRoutine(levelDuration));
+        }
+
+        private IEnumerator LevelDurationRoutine(float lvlDuration)
+        {
+            yield return new WaitForSeconds(lvlDuration);
+            Debug.Log("Level completed!");
         }
     }
 }

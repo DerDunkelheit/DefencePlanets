@@ -45,6 +45,7 @@ namespace EarthDefendGame.Configs
     [CreateAssetMenu(fileName = "GameConfig", menuName = "Configs/GameConfig")]
     public class GameConfig : ScriptableObject
     {
+        [Tooltip("In seconds")] public float levelDuration = 180;
         public AsteroidParametersConfig asteroidParametersConfig;
         public AsteroidSpawnerConfig asteroidSpawnerConfig;
         public PowerUpSpawnerConfig powerUpSpawnerConfig;
