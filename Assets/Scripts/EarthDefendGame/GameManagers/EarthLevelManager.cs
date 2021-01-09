@@ -45,6 +45,7 @@ namespace EarthDefendGame.GameManagers
         {
             var levelDuration = GameController.instance.gameConfig.levelDuration;
             StartCoroutine(LevelDurationRoutine(levelDuration));
+            GameController.uiController.UpdateLevelDuration();
         }
 
         private IEnumerator LevelDurationRoutine(float lvlDuration)
