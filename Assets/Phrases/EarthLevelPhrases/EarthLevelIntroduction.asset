@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: EarthLevelIntroduction
   m_EditorClassIdentifier: 
   phrases:
-  - first
-  - second
-  - third
+  - Earth, 2135 year. Scanners have detected a huge number of asteroids that are
+    currently moving towards Earth. Scientists all over the Earth have united together
+    to deal with this
+  - However, there are too many asteroids, so Earth goverment has decided to evacuate
+    most of the people to another planet
+  - But it is required time, so you have to protect Erth from falling asteroids,while
+    the evacuation is taking place. Get ready
