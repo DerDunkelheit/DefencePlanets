@@ -13,7 +13,7 @@ namespace EarthDefendGame.GameComponents
         public event Action KillCountUpdateEvent;
         public event Action PowerUpPickUpedEvent;
         public event Action PowerUpEndedEvent;
-        
+
         [SerializeField] private GameObject planetSprite = null;
         [SerializeField] private BasePlanetGun startingPlanetGun = null;
 
@@ -35,7 +35,8 @@ namespace EarthDefendGame.GameComponents
             moveComponent = this.GetComponent<IMovable>();
             damageComponent = this.GetComponent<IDamageable>();
             damageComponent.DeathEvent += OnDied;
-            currentGun = Instantiate(startingPlanetGun, this.transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+            currentGun = Instantiate(startingPlanetGun, this.transform.position + new Vector3(0, 2, 0),
+                Quaternion.identity);
             currentGun.transform.SetParent(this.transform);
             gunComponent = currentGun.GetComponent<IShooting>();
             healthComponent = this.GetComponent<ICurable>();
@@ -43,11 +44,13 @@ namespace EarthDefendGame.GameComponents
 
         private void Start()
         {
-            config = GameController.instance.GameConfig.powerUpConfig;
+            config = GameController.instance.gameConfig.powerUpConfig;
         }
 
         private void Update()
         {
+            if (!isActive) return;
+
             MoveGun();
 
             //TODO: probably we should separate input logic.
@@ -56,21 +59,21 @@ namespace EarthDefendGame.GameComponents
                 gunComponent.Shoot();
             }
         }
-        
+
         protected override void Unsubscribe()
         {
             damageComponent.DeathEvent -= OnDied;
-            
+
             base.Unsubscribe();
         }
 
         public void IncreaseKillCount()
         {
             killCount++;
-            
+
             KillCountUpdateEvent?.Invoke();
         }
-        
+
         private void MoveGun()
         {
             moveComponent.Move();
@@ -90,7 +93,7 @@ namespace EarthDefendGame.GameComponents
             {
                 StopCoroutine(powerUpRoutine);
             }
-            
+
             PowerUpPickUpedEvent?.Invoke();
             EquipNewGun(newGun);
             powerUpRoutine = StartCoroutine(PowerUpActiveRoutine());

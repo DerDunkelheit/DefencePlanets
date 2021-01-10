@@ -5,9 +5,21 @@ namespace EarthDefendGame.GameControllers
 {
     public abstract class BaseController : MonoBehaviour
     {
+        protected bool isActive;
+        
         public void Init()
         {
             Subscribe();
+        }
+
+        public void EnableController()
+        {
+            isActive = true;
+        }
+
+        public void DisableController()
+        {
+            isActive = false;
         }
         
         protected virtual void Subscribe()

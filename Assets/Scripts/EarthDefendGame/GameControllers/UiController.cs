@@ -14,37 +14,59 @@ namespace EarthDefendGame.GameControllers
         [SerializeField] private Image powerUpDurationImage = null;
         [SerializeField] private TextMeshProUGUI playerScoreText = null;
         [SerializeField] private GameObject deathPanel = null;
+        [SerializeField] private GameObject levelDuration = null;
+        [SerializeField] private Image levelDurationImage = null;
 
         private Tween powerUpDurationTween;
+        private Tween levelDurationTween;
         
+        //TODO: create an interface witch is called IStoryManager or something like that, and create there an event, on Level completed and create subscribe instead of public methods.
+
         protected override void Subscribe()
         {
             base.Subscribe();
-            
-            GameController.PlanetController.KillCountUpdateEvent += OnPlayerScoreUpdated;
-            GameController.PlanetController.PlanetDestroyEven += ShowDeathPanel;
-            GameController.PlanetController.PowerUpPickUpedEvent += UpdatePowerUpDurationAmount;
-            GameController.PlanetController.PowerUpEndedEvent += TurnOffPowerUpObject;
+
+            GameController.planetController.KillCountUpdateEvent += OnPlayerScoreUpdated;
+            GameController.planetController.PlanetDestroyEven += ShowDeathPanel;
+            GameController.planetController.PowerUpPickUpedEvent += UpdatePowerUpDurationAmount;
+            GameController.planetController.PowerUpEndedEvent += TurnOffPowerUpObject;
+            GameController.planetController.PlanetDestroyEven += StopLevelDurationProcess;
         }
 
         protected override void Unsubscribe()
         {
-            GameController.PlanetController.KillCountUpdateEvent -= OnPlayerScoreUpdated;
-            GameController.PlanetController.PlanetDestroyEven -= ShowDeathPanel;
-            GameController.PlanetController.PowerUpPickUpedEvent -= UpdatePowerUpDurationAmount;
-            GameController.PlanetController.PowerUpEndedEvent -= TurnOffPowerUpObject;
-            
+            GameController.planetController.KillCountUpdateEvent -= OnPlayerScoreUpdated;
+            GameController.planetController.PlanetDestroyEven -= ShowDeathPanel;
+            GameController.planetController.PowerUpPickUpedEvent -= UpdatePowerUpDurationAmount;
+            GameController.planetController.PowerUpEndedEvent -= TurnOffPowerUpObject;
+            GameController.planetController.PlanetDestroyEven -= StopLevelDurationProcess;
+
             base.Unsubscribe();
         }
 
         public void UpdateHealthAmount()
         {
-            healthImage.DOFillAmount(GameController.PlanetController.CurrentHealth / GameController.PlanetController.MaxHealth, 0.25f);
+            healthImage.DOFillAmount(
+                GameController.planetController.CurrentHealth / GameController.planetController.MaxHealth, 0.25f);
+        }
+
+        //TODO: create event for that.
+        public void UpdateLevelDuration()
+        {
+            levelDuration.SetActive(true);
+            levelDurationTween = levelDurationImage.DOFillAmount(1, GameController.instance.gameConfig.levelDuration);
+        }
+
+        public void DisableAllUi()
+        {
+            powerUpDuration.SetActive(false);
+            playerScoreText.gameObject.SetActive(false);
+            levelDuration.SetActive(false);
         }
 
         private void OnPlayerScoreUpdated()
         {
-            playerScoreText.text = $"Score: {GameController.PlanetController.KillCount}";
+            playerScoreText.text = $"Score: {GameController.planetController.KillCount}";
         }
 
         private void UpdatePowerUpDurationAmount()
@@ -52,18 +74,23 @@ namespace EarthDefendGame.GameControllers
             powerUpDuration.SetActive(true);
             powerUpDurationImage.fillAmount = 1;
             powerUpDurationTween?.Kill();
-            powerUpDurationTween = powerUpDurationImage.DOFillAmount(0, GameController.instance.GameConfig.powerUpConfig.powerUpDuration);
+            powerUpDurationTween =
+                powerUpDurationImage.DOFillAmount(0, GameController.instance.gameConfig.powerUpConfig.powerUpDuration);
         }
 
         private void TurnOffPowerUpObject()
         {
             powerUpDuration.SetActive(false);
         }
-        
+
         private void ShowDeathPanel()
         {
             deathPanel.gameObject.SetActive(true);
         }
-        
+
+        private void StopLevelDurationProcess()
+        {
+            levelDurationTween?.Kill();
+        }
     }
 }
