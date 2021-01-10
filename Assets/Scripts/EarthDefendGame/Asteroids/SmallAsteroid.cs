@@ -5,6 +5,8 @@ namespace EarthDefendGame.Asteroids
 {
     public class SmallAsteroid : BaseAsteroid
     {
+        [SerializeField] private ParticleSystem destroyParticle = null;
+        
         protected override void Awake()
         {
             base.Awake();
@@ -14,7 +16,14 @@ namespace EarthDefendGame.Asteroids
 
         protected override void OnDied()
         {
+            SpawnDestroyEffect();
             Destroy(this.gameObject);
+        }
+
+        private void SpawnDestroyEffect()
+        {
+            var destroyEffect = Instantiate(destroyParticle, this.transform.position, this.transform.rotation);
+            Destroy(destroyEffect.gameObject,1.5f);
         }
     }
 }
