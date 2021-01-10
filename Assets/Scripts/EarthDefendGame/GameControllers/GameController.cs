@@ -21,6 +21,9 @@ namespace EarthDefendGame.GameControllers
 
         private List<BaseController> controllers = new List<BaseController>();
 
+        //TODO: came up with better solution.
+        public bool IsLevelPlaying { get; set; } = true;
+
         private void Awake()
         {
             if (instance == null)
@@ -38,7 +41,7 @@ namespace EarthDefendGame.GameControllers
             sceneController = this.GetComponent<SceneController>();
             textPanelController = this.GetComponent<TextPanelController>();
 
-            controllers = new List<BaseController>(this.GetComponents<BaseController>());
+            controllers = new List<BaseController>(this.GetComponents<BaseController>()) {planetController};
             InitAllControllers();
             EnableAllControllers();
         }
@@ -63,7 +66,7 @@ namespace EarthDefendGame.GameControllers
         {
             foreach (var controller in controllers)
             {
-               controller.DisableController();   
+                controller.DisableController();
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using EarthDefendGame.GameControllers;
 using EarthDefendGame.TextPhrases;
@@ -10,7 +11,14 @@ namespace EarthDefendGame.GameManagers
     {
         [SerializeField] private PhrasesData introductionPhrases = null;
 
+        private Animator animator;
         private Coroutine levelDurationRoutine;
+        private static readonly int LevelEnding = Animator.StringToHash("LevelEnding");
+
+        private void Awake()
+        {
+            animator = this.GetComponent<Animator>();
+        }
 
         private void Start()
         {
@@ -55,10 +63,13 @@ namespace EarthDefendGame.GameManagers
             CompleteLevel();
         }
 
+        //TODO: probably event would be good here.
         private void CompleteLevel()
         {
-            //TODO: create rocket fly to another Planet animation.
-            Debug.Log("Level completed!");
+            GameController.instance.IsLevelPlaying = false;
+            GameController.instance.DisableControllers();
+            GameController.uiController.DisableAllUi();
+            animator.SetTrigger(LevelEnding);
         }
 
         private void StopLevelDuration()

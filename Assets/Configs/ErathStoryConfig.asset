@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8534ba3c6646c7f41a47b228b8199fcf, type: 3}
   m_Name: ErathStoryConfig
   m_EditorClassIdentifier: 
-  levelDuration: 180
+  levelDuration: 40
   asteroidParametersConfig:
     minMoveSpeed: 4
     maxMoveSpeed: 7

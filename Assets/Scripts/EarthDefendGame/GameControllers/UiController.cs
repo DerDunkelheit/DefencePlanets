@@ -19,6 +19,8 @@ namespace EarthDefendGame.GameControllers
 
         private Tween powerUpDurationTween;
         private Tween levelDurationTween;
+        
+        //TODO: create an interface witch is called IStoryManager or something like that, and create there an event, on Level completed and create subscribe instead of public methods.
 
         protected override void Subscribe()
         {
@@ -53,6 +55,13 @@ namespace EarthDefendGame.GameControllers
         {
             levelDuration.SetActive(true);
             levelDurationTween = levelDurationImage.DOFillAmount(1, GameController.instance.gameConfig.levelDuration);
+        }
+
+        public void DisableAllUi()
+        {
+            powerUpDuration.SetActive(false);
+            playerScoreText.gameObject.SetActive(false);
+            levelDuration.SetActive(false);
         }
 
         private void OnPlayerScoreUpdated()
