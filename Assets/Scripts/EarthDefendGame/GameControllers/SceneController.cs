@@ -30,7 +30,7 @@ namespace EarthDefendGame.GameControllers
             base.Unsubscribe();
         }
 
-        private void RestartScene()
+        public void RestartScene()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

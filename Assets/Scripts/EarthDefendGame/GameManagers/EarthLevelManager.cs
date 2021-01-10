@@ -80,7 +80,7 @@ namespace EarthDefendGame.GameManagers
         private void LevelSwitching()
         {
             //TODO: add next levels
-            GameController.lightController.SetGlobalLightIntensity(0,0.8f,() => GameController.sceneController.LoadMainMenu());
+            GameController.lightController.SetGlobalLightIntensity(0,0.8f,() => GameController.sceneController.RestartScene());
         }
 
         private void OnDestroy()
