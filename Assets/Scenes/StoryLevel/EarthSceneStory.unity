@@ -744,6 +744,7 @@ GameObject:
   - component: {fileID: 388126464}
   - component: {fileID: 388126465}
   - component: {fileID: 388126467}
+  - component: {fileID: 388126468}
   m_Layer: 0
   m_Name: GameControllers
   m_TagString: Untagged
@@ -856,6 +857,19 @@ MonoBehaviour:
   continueButton: {fileID: 2146074480}
   hideShowAnimDuration: 0.4
   bottomThreshold: -130
+--- !u!114 &388126468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388126460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f85ec00cd214264e92c07d45894f1a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalLight: {fileID: 2130068783}
 --- !u!1 &405835920
 GameObject:
   m_ObjectHideFlags: 0
@@ -2462,7 +2476,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1562785737}
-    characterCount: 13
+    characterCount: 12
     spriteCount: 0
     spaceCount: 2
     wordCount: 3

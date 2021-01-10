@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using EarthDefendGame.GameControllers;
 using EarthDefendGame.TextPhrases;
@@ -75,6 +74,13 @@ namespace EarthDefendGame.GameManagers
         private void StopLevelDuration()
         {
             StopCoroutine(levelDurationRoutine);
+        }
+
+        //This method is used in animation event on Earth_level_ending animation.
+        private void LevelSwitching()
+        {
+            //TODO: add next levels
+            GameController.lightController.SetGlobalLightIntensity(0,0.8f,() => GameController.sceneController.LoadMainMenu());
         }
 
         private void OnDestroy()

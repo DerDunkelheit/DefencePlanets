@@ -51,5 +51,10 @@ namespace EarthDefendGame.GameControllers
             
             SceneManager.LoadScene($"{levelType}SceneInfinity");
         }
+
+        public void LoadMainMenu()
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace EarthDefendGame.GameControllers
         public static UiController uiController;
         public static SceneController sceneController;
         public static TextPanelController textPanelController;
+        public static LightController lightController;
 
         public GameConfig gameConfig;
 
@@ -40,6 +41,7 @@ namespace EarthDefendGame.GameControllers
             uiController = this.GetComponent<UiController>();
             sceneController = this.GetComponent<SceneController>();
             textPanelController = this.GetComponent<TextPanelController>();
+            lightController = this.GetComponent<LightController>();
 
             controllers = new List<BaseController>(this.GetComponents<BaseController>()) {planetController};
             InitAllControllers();
