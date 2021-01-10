@@ -8,14 +8,15 @@ namespace EarthDefendGame.GameManagers
 {
     public class EarthLevelManager : MonoBehaviour
     {
-        //TODO: came up with better naming.
-
         [SerializeField] private PhrasesData introductionPhrases = null;
+
+        private Coroutine levelDurationRoutine;
 
         private void Start()
         {
+            GameController.planetController.PlanetDestroyEven += StopLevelDuration;
             GameController.instance.DisableControllers();
-            
+
             StartIntroductionDialog();
         }
 
@@ -26,10 +27,10 @@ namespace EarthDefendGame.GameManagers
             {
                 testQueue.Enqueue(phrase);
             }
-            
+
             IText introductionText = new EarthLevelIntroductionText(testQueue);
             introductionText.PhrasesEndedEvent += OnIntroductionEnded;
-            
+
             GameController.textPanelController.ShowTextPanel(introductionText);
         }
 
@@ -44,14 +45,30 @@ namespace EarthDefendGame.GameManagers
         private void ActiveLevelTimer()
         {
             var levelDuration = GameController.instance.gameConfig.levelDuration;
-            StartCoroutine(LevelDurationRoutine(levelDuration));
+            levelDurationRoutine = StartCoroutine(LevelDurationRoutine(levelDuration));
             GameController.uiController.UpdateLevelDuration();
         }
 
         private IEnumerator LevelDurationRoutine(float lvlDuration)
         {
             yield return new WaitForSeconds(lvlDuration);
+            CompleteLevel();
+        }
+
+        private void CompleteLevel()
+        {
+            //TODO: create rocket fly to another Planet animation.
             Debug.Log("Level completed!");
+        }
+
+        private void StopLevelDuration()
+        {
+            StopCoroutine(levelDurationRoutine);
+        }
+
+        private void OnDestroy()
+        {
+            GameController.planetController.PlanetDestroyEven -= StopLevelDuration;
         }
     }
 }

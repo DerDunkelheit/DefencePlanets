@@ -11,14 +11,12 @@ namespace EarthDefendGame.PlanetGuns
         [SerializeField] private Transform firstMuzzlePoint = null;
         [SerializeField] private Transform secondMuzzlePoint = null;
         [SerializeField] private Transform thirdMuzzlePoint = null;
-        
+
         public void Shoot()
         {
-           //TODO: create shooting delay and flying to sides effect
-           
-           GameObject bullet = Instantiate(deviationBulletLeft, firstMuzzlePoint.position, firstMuzzlePoint.rotation);
-           GameObject bullet2 = Instantiate(projectilePrefab, secondMuzzlePoint.position, secondMuzzlePoint.rotation);
-           GameObject bullet3 = Instantiate(deviationBulletRight, thirdMuzzlePoint.position, thirdMuzzlePoint.rotation);
+            GameObject bullet = Instantiate(deviationBulletLeft, firstMuzzlePoint.position, firstMuzzlePoint.rotation);
+            GameObject bullet2 = Instantiate(projectilePrefab, secondMuzzlePoint.position, secondMuzzlePoint.rotation);
+            GameObject bullet3 = Instantiate(deviationBulletRight, thirdMuzzlePoint.position, thirdMuzzlePoint.rotation);
         }
     }
 }

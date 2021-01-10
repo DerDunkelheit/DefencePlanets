@@ -9,8 +9,6 @@ namespace EarthDefendGame.GameControllers
 {
     public class TextPanelController : BaseController
     {
-        //TODO: came up with better naming.
-        
         [SerializeField] private GameObject textPanel = null;
         [SerializeField] private TextMeshProUGUI displayingText = null;
         [SerializeField] private Button continueButton = null;
@@ -18,7 +16,7 @@ namespace EarthDefendGame.GameControllers
         [SerializeField] private float bottomThreshold = -120;
 
         private RectTransform textPanelRectTransform;
-        private IText currentTextToShow;
+        private IText currentTextModule;
         private Coroutine typeTextRoutine;
 
         private void Awake()
@@ -41,10 +39,10 @@ namespace EarthDefendGame.GameControllers
             base.Unsubscribe();
         }
 
-        public void ShowTextPanel(IText textToShow)
+        public void ShowTextPanel(IText textModule)
         {
             displayingText.text = "";
-            currentTextToShow = textToShow;
+            currentTextModule = textModule;
             Sequence sequence = DOTween.Sequence();
             sequence.Append(textPanelRectTransform.DOAnchorPosY(0, hideShowAnimDuration)).onComplete += PlayNextPhrase;
         }
@@ -56,7 +54,7 @@ namespace EarthDefendGame.GameControllers
 
         private void PlayNextPhrase()
         {
-            var phraseToShow = currentTextToShow.TryGetNextPhrase();
+            var phraseToShow = currentTextModule.TryGetNextPhrase();
             if (phraseToShow != null)
             {
                 if (typeTextRoutine != null)

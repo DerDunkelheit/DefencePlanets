@@ -18,6 +18,7 @@ namespace EarthDefendGame.GameControllers
         [SerializeField] private Image levelDurationImage = null;
 
         private Tween powerUpDurationTween;
+        private Tween levelDurationTween;
 
         protected override void Subscribe()
         {
@@ -27,6 +28,7 @@ namespace EarthDefendGame.GameControllers
             GameController.planetController.PlanetDestroyEven += ShowDeathPanel;
             GameController.planetController.PowerUpPickUpedEvent += UpdatePowerUpDurationAmount;
             GameController.planetController.PowerUpEndedEvent += TurnOffPowerUpObject;
+            GameController.planetController.PlanetDestroyEven += StopLevelDurationProcess;
         }
 
         protected override void Unsubscribe()
@@ -35,6 +37,7 @@ namespace EarthDefendGame.GameControllers
             GameController.planetController.PlanetDestroyEven -= ShowDeathPanel;
             GameController.planetController.PowerUpPickUpedEvent -= UpdatePowerUpDurationAmount;
             GameController.planetController.PowerUpEndedEvent -= TurnOffPowerUpObject;
+            GameController.planetController.PlanetDestroyEven -= StopLevelDurationProcess;
 
             base.Unsubscribe();
         }
@@ -49,7 +52,7 @@ namespace EarthDefendGame.GameControllers
         public void UpdateLevelDuration()
         {
             levelDuration.SetActive(true);
-            levelDurationImage.DOFillAmount(1, GameController.instance.gameConfig.levelDuration);
+            levelDurationTween = levelDurationImage.DOFillAmount(1, GameController.instance.gameConfig.levelDuration);
         }
 
         private void OnPlayerScoreUpdated()
@@ -74,6 +77,11 @@ namespace EarthDefendGame.GameControllers
         private void ShowDeathPanel()
         {
             deathPanel.gameObject.SetActive(true);
+        }
+
+        private void StopLevelDurationProcess()
+        {
+            levelDurationTween?.Kill();
         }
     }
 }
