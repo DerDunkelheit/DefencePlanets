@@ -17,9 +17,10 @@ namespace EarthDefendGame.Asteroids
         protected override void OnDied()
         {
             SpawnDestroyEffect();
+            AdjustFlyParticle();
             Destroy(this.gameObject);
         }
-
+        
         private void SpawnDestroyEffect()
         {
             var destroyEffect = Instantiate(destroyParticle, this.transform.position, this.transform.rotation);
