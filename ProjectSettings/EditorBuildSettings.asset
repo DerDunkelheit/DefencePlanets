@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: f059584dc350f854ab48407a800633fa
+  - enabled: 1
+    path: Assets/Scenes/StoryLevel/EarthSceneStory.unity
+    guid: bbf73aa7c26be4645860e10c450d0631
   m_configObjects: {}

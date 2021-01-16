@@ -52,6 +52,12 @@ namespace EarthDefendGame.GameControllers
             SceneManager.LoadScene($"{levelType}SceneInfinity");
         }
 
+        //TODO: read levels from config or csv file.
+        public void StartStoryLevel()
+        {
+            SceneManager.LoadScene("EarthSceneStory");
+        }
+
         public void LoadMainMenu()
         {
             SceneManager.LoadScene("MainMenu");
