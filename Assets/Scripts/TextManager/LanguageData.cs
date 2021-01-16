@@ -14,14 +14,7 @@ namespace TextManager
 
         public static bool TryGetModule(LanguageToTranslate languageToTranslate, out ILanguageModule module)
         {
-            if (possibleLanguageMap.ContainsKey(languageToTranslate))
-            {
-                module = possibleLanguageMap[languageToTranslate];
-                return true;
-            }
-
-            module = null;
-            return false;
+            return possibleLanguageMap.TryGetValue(languageToTranslate, out module);
         }
     }
 }
