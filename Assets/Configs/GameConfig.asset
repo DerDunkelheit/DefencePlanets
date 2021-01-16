@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8534ba3c6646c7f41a47b228b8199fcf, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
+  levelDuration: 120
   asteroidParametersConfig:
     minMoveSpeed: 4
     maxMoveSpeed: 7
@@ -28,6 +29,7 @@ MonoBehaviour:
     maxTimeToSpawn: 3
     minAdditionalToSpawnSide: -19
     maxAdditionalToSpawnSide: 19
+    chaneToSpawnDoubleAsteroid: 15
   powerUpSpawnerConfig:
     possiblePowerUps:
     - {fileID: 5273272432971691740, guid: 4b008914c7a04634aaf141bd2a7aa956, type: 3}

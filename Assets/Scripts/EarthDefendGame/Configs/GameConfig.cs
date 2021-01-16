@@ -24,6 +24,7 @@ namespace EarthDefendGame.Configs
         public float maxTimeToSpawn = 4f;
         public float minAdditionalToSpawnSide = -10;
         public float maxAdditionalToSpawnSide = 10;
+        [Tooltip("In percents")] public int chaneToSpawnDoubleAsteroid = 15;
     }
 
     [System.Serializable]
