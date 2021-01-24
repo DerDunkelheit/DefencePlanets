@@ -1,5 +1,4 @@
-﻿using System;
-using EarthDefendGame.MainMenuScripts;
+﻿using EarthDefendGame.MainMenuScripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,28 +7,6 @@ namespace EarthDefendGame.GameControllers
 {
     public class SceneController : BaseController
     {
-        [SerializeField] private Button restartButton = null;
-        
-        protected override void Subscribe()
-        {
-            base.Subscribe();
-            
-            if (restartButton != null)
-            {
-                restartButton.onClick.AddListener(RestartScene);
-            }
-        }
-
-        protected override void Unsubscribe()
-        {
-            if (restartButton != null)
-            {
-                restartButton.onClick.RemoveListener(RestartScene);
-            }
-
-            base.Unsubscribe();
-        }
-
         public void RestartScene()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -50,6 +27,12 @@ namespace EarthDefendGame.GameControllers
             }
             
             SceneManager.LoadScene($"{levelType}SceneInfinity");
+        }
+
+        //TODO: read levels from config or csv file.
+        public void StartStoryLevel()
+        {
+            SceneManager.LoadScene("EarthSceneStory");
         }
 
         public void LoadMainMenu()

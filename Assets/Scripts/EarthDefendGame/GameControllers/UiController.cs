@@ -1,6 +1,4 @@
-﻿using System;
-using DG.Tweening;
-using EarthDefendGame.GameComponents;
+﻿using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +11,6 @@ namespace EarthDefendGame.GameControllers
         [SerializeField] private GameObject powerUpDuration = null;
         [SerializeField] private Image powerUpDurationImage = null;
         [SerializeField] private TextMeshProUGUI playerScoreText = null;
-        [SerializeField] private GameObject deathPanel = null;
         [SerializeField] private GameObject levelDuration = null;
         [SerializeField] private Image levelDurationImage = null;
 
@@ -27,7 +24,6 @@ namespace EarthDefendGame.GameControllers
             base.Subscribe();
 
             GameController.planetController.KillCountUpdateEvent += OnPlayerScoreUpdated;
-            GameController.planetController.PlanetDestroyEven += ShowDeathPanel;
             GameController.planetController.PowerUpPickUpedEvent += UpdatePowerUpDurationAmount;
             GameController.planetController.PowerUpEndedEvent += TurnOffPowerUpObject;
             GameController.planetController.PlanetDestroyEven += StopLevelDurationProcess;
@@ -36,7 +32,6 @@ namespace EarthDefendGame.GameControllers
         protected override void Unsubscribe()
         {
             GameController.planetController.KillCountUpdateEvent -= OnPlayerScoreUpdated;
-            GameController.planetController.PlanetDestroyEven -= ShowDeathPanel;
             GameController.planetController.PowerUpPickUpedEvent -= UpdatePowerUpDurationAmount;
             GameController.planetController.PowerUpEndedEvent -= TurnOffPowerUpObject;
             GameController.planetController.PlanetDestroyEven -= StopLevelDurationProcess;
@@ -82,12 +77,7 @@ namespace EarthDefendGame.GameControllers
         {
             powerUpDuration.SetActive(false);
         }
-
-        private void ShowDeathPanel()
-        {
-            deathPanel.gameObject.SetActive(true);
-        }
-
+        
         private void StopLevelDurationProcess()
         {
             levelDurationTween?.Kill();

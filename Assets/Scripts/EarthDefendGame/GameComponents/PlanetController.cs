@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using EarthDefendGame.Configs;
 using EarthDefendGame.GameControllers;
 using EarthDefendGame.PlanetGuns;
@@ -14,8 +15,10 @@ namespace EarthDefendGame.GameComponents
         public event Action PowerUpPickUpedEvent;
         public event Action PowerUpEndedEvent;
 
+        //TODO: add smoke particles after planet destroy effect.
         [SerializeField] private GameObject planetSprite = null;
         [SerializeField] private BasePlanetGun startingPlanetGun = null;
+        [SerializeField] private GameObject planetDestroyEffect = null;
 
         private IMovable moveComponent;
         private IShooting gunComponent;
@@ -83,8 +86,11 @@ namespace EarthDefendGame.GameComponents
         {
             PlanetDestroyEven?.Invoke();
 
+            planetDestroyEffect.SetActive(true);
             Destroy(planetSprite.gameObject);
             Destroy(this.gameObject);
+            GameController.lightController.SetGlobalLightIntensityWithDelay(0, 0.8f, 1,
+                GameController.sceneController.RestartScene);
         }
 
         public void ActivePowerUp(BasePlanetGun newGun)

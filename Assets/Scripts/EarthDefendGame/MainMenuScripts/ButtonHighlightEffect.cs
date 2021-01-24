@@ -8,7 +8,7 @@ namespace EarthDefendGame.MainMenuScripts
     {
         public void OnPointerEnter(PointerEventData eventData)
         {
-            this.transform.DOScale(new Vector3(1.25f, 1.25f, 1.25f), 0.2f);
+            this.transform.DOScale(new Vector3(1.12f, 1.12f, 1.12f), 0.2f);
         }
 
         public void OnPointerExit(PointerEventData eventData)

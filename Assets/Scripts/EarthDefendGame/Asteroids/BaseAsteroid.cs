@@ -16,6 +16,7 @@ namespace EarthDefendGame.Asteroids
         private float rotationSpeed;
         private float moveSpeed;
         private Vector2 planetPosition;
+        private ParticleSystem flyParticle;
 
         protected abstract void OnDied();
 
@@ -26,6 +27,14 @@ namespace EarthDefendGame.Asteroids
             damageComponent = this.GetComponent<IDamageable>();
             damageComponent.DeathEvent += UpdatePlayerCount;
             planetPosition = GameObject.FindWithTag("Player").transform.position;
+            
+            //TODO: think about better solution
+            var particle = transform.Find("AsteroidFlyParticle");
+            if (particle != null)
+            {
+                flyParticle = particle.GetComponent<ParticleSystem>();
+            }
+            
             SetInitialParameters();
         }
         
@@ -55,6 +64,17 @@ namespace EarthDefendGame.Asteroids
             this.transform.position =
                 Vector3.MoveTowards(this.transform.position, planetPosition, moveSpeed * Time.deltaTime);
         }
+        
+        protected void AdjustFlyParticle()
+        {
+            if(flyParticle == null)
+                return;
+            
+            flyParticle.transform.SetParent(null);
+            flyParticle.transform.localScale = Vector3.one;
+            flyParticle.Stop();
+            Destroy(flyParticle,5f);
+        }
 
         private void UpdatePlayerCount()
         {
@@ -68,6 +88,7 @@ namespace EarthDefendGame.Asteroids
                 if (other.TryGetComponent<IDamageable>(out var damageComp))
                 {
                     damageComp.TakeDamage(damage);
+                    AdjustFlyParticle();
                     Destroy(this.gameObject);
                 }
             }
