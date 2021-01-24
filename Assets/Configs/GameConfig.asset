@@ -12,21 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8534ba3c6646c7f41a47b228b8199fcf, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
+  levelDuration: 120
   asteroidParametersConfig:
     minMoveSpeed: 4
-    maxMoveSpeed: 6
-    minLeftRotationSpeed: -25
-    maxLeftRotationSpeed: -100
-    minRightRotationSpeed: 25
-    maxRightRotationSpeed: 100
+    maxMoveSpeed: 7
+    minLeftRotationSpeed: -40
+    maxLeftRotationSpeed: -150
+    minRightRotationSpeed: 40
+    maxRightRotationSpeed: 150
   asteroidSpawnerConfig:
+    possibleAsteroids:
+    - {fileID: 1832519651014752025, guid: 78d7a115db4002146a24e832d30ac04d, type: 3}
+    - {fileID: 7094364156034167506, guid: 07769334938c07e4a9634c7dce63bcc0, type: 3}
+    - {fileID: 7094364156034167506, guid: d67a324a10b525f48bef4039dc58d773, type: 3}
     minTimeToSpawn: 1
-    maxTimeToSpawn: 4
+    maxTimeToSpawn: 3
     minAdditionalToSpawnSide: -19
     maxAdditionalToSpawnSide: 19
+    chaneToSpawnDoubleAsteroid: 15
   powerUpSpawnerConfig:
     possiblePowerUps:
     - {fileID: 5273272432971691740, guid: 4b008914c7a04634aaf141bd2a7aa956, type: 3}
     minTimeToSpawn: 4
     maxTimeToSpawn: 15
-    maximumRangeToSpawn: 17
+    maximumXRange: 17
+    maximumYRange: 12
+  powerUpConfig:
+    powerUpDuration: 10

@@ -28,6 +28,9 @@ namespace EarthDefendGame.GameComponents
 
         public void RestoreHealth(float amount)
         {
+            if(!GameController.instance.IsLevelPlaying)
+                return;
+            
             currentHealth += amount;
 
             if (currentHealth > startingHealth)
@@ -40,6 +43,9 @@ namespace EarthDefendGame.GameComponents
 
         public void TakeDamage(float damage)
         {
+            if(!GameController.instance.IsLevelPlaying)
+                return;
+            
             currentHealth -= damage;
 
             if (currentHealth <= 0)
@@ -62,7 +68,7 @@ namespace EarthDefendGame.GameComponents
         
         private void OnHealthChanged()
         {
-            GameController.UiController.UpdateHealthAmount();
+            GameController.uiController.UpdateHealthAmount();
         }
 
         private void OnDestroy()

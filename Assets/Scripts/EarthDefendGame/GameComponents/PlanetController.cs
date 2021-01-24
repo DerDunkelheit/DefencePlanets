@@ -1,17 +1,24 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using EarthDefendGame.Configs;
+using EarthDefendGame.GameControllers;
 using EarthDefendGame.PlanetGuns;
 using UnityEngine;
 
 namespace EarthDefendGame.GameComponents
 {
-    public class PlanetController : MonoBehaviour
+    public class PlanetController : BaseController
     {
         public event Action PlanetDestroyEven;
         public event Action KillCountUpdateEvent;
-        
+        public event Action PowerUpPickUpedEvent;
+        public event Action PowerUpEndedEvent;
+
+        //TODO: add smoke particles after planet destroy effect.
         [SerializeField] private GameObject planetSprite = null;
         [SerializeField] private BasePlanetGun startingPlanetGun = null;
+        [SerializeField] private GameObject planetDestroyEffect = null;
 
         private IMovable moveComponent;
         private IShooting gunComponent;
@@ -20,6 +27,7 @@ namespace EarthDefendGame.GameComponents
         private ICurable healthComponent;
         private int killCount;
         private Coroutine powerUpRoutine;
+        private PowerUpConfig config;
 
         public float CurrentHealth => healthComponent.CurrentHealth;
         public float MaxHealth => healthComponent.MaxHealth;
@@ -30,14 +38,22 @@ namespace EarthDefendGame.GameComponents
             moveComponent = this.GetComponent<IMovable>();
             damageComponent = this.GetComponent<IDamageable>();
             damageComponent.DeathEvent += OnDied;
-            currentGun = Instantiate(startingPlanetGun, this.transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+            currentGun = Instantiate(startingPlanetGun, this.transform.position + new Vector3(0, 2, 0),
+                Quaternion.identity);
             currentGun.transform.SetParent(this.transform);
             gunComponent = currentGun.GetComponent<IShooting>();
             healthComponent = this.GetComponent<ICurable>();
         }
-        
+
+        private void Start()
+        {
+            config = GameController.instance.gameConfig.powerUpConfig;
+        }
+
         private void Update()
         {
+            if (!isActive) return;
+
             MoveGun();
 
             //TODO: probably we should separate input logic.
@@ -47,13 +63,20 @@ namespace EarthDefendGame.GameComponents
             }
         }
 
+        protected override void Unsubscribe()
+        {
+            damageComponent.DeathEvent -= OnDied;
+
+            base.Unsubscribe();
+        }
+
         public void IncreaseKillCount()
         {
             killCount++;
-            
+
             KillCountUpdateEvent?.Invoke();
         }
-        
+
         private void MoveGun()
         {
             moveComponent.Move();
@@ -63,8 +86,11 @@ namespace EarthDefendGame.GameComponents
         {
             PlanetDestroyEven?.Invoke();
 
+            planetDestroyEffect.SetActive(true);
             Destroy(planetSprite.gameObject);
             Destroy(this.gameObject);
+            GameController.lightController.SetGlobalLightIntensityWithDelay(0, 0.8f, 1,
+                GameController.sceneController.RestartScene);
         }
 
         public void ActivePowerUp(BasePlanetGun newGun)
@@ -73,15 +99,17 @@ namespace EarthDefendGame.GameComponents
             {
                 StopCoroutine(powerUpRoutine);
             }
-            
+
+            PowerUpPickUpedEvent?.Invoke();
             EquipNewGun(newGun);
             powerUpRoutine = StartCoroutine(PowerUpActiveRoutine());
         }
 
         private IEnumerator PowerUpActiveRoutine()
         {
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(config.powerUpDuration);
             EquipNewGun(startingPlanetGun);
+            PowerUpEndedEvent?.Invoke();
         }
 
         private void EquipNewGun(BasePlanetGun newGun)
@@ -91,11 +119,6 @@ namespace EarthDefendGame.GameComponents
             currentGun = Instantiate(newGun, transformToSpawn.position, transformToSpawn.rotation);
             currentGun.transform.SetParent(this.transform);
             gunComponent = currentGun.GetComponent<IShooting>();
-        }
-
-        private void OnDestroy()
-        {
-            damageComponent.DeathEvent -= OnDied;
         }
     }
 }

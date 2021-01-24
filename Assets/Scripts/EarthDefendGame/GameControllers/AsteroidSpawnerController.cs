@@ -8,7 +8,6 @@ namespace EarthDefendGame.GameControllers
 {
     public class AsteroidSpawnerController : BaseController
     {
-        [SerializeField] private List<GameObject> asteroidPrefabs = new List<GameObject>();
         [SerializeField] private Transform topSpawnPoint = null;
         [SerializeField] private Transform leftSpawnPoint = null;
         [SerializeField] private Transform bottomSpawnPoint = null;
@@ -19,17 +18,17 @@ namespace EarthDefendGame.GameControllers
 
         private void Awake()
         {
-            config = GameController.instance.GameConfig.asteroidSpawnerConfig;
+            config = GameController.instance.gameConfig.asteroidSpawnerConfig;
             spawningRoutine = StartCoroutine(SpawnAsteroidRoutine());
         }
-        
+
         protected override void Subscribe()
         {
             base.Subscribe();
-            
-            GameController.PlanetController.PlanetDestroyEven += StopSpawningAsteroids;
+
+            GameController.planetController.PlanetDestroyEven += StopSpawningAsteroids;
         }
-        
+
         private void StopSpawningAsteroids()
         {
             StopCoroutine(spawningRoutine);
@@ -40,51 +39,60 @@ namespace EarthDefendGame.GameControllers
             while (true)
             {
                 yield return new WaitForSeconds(Random.Range(config.minTimeToSpawn, config.maxTimeToSpawn));
-                SpawnAsteroid();
+                if (isActive)
+                {
+                    SpawnAsteroid();
+                }
             }
         }
 
         private void SpawnAsteroid()
         {
-            var currentSide = Random.Range(0, 4);
-            var additionalRange = Random.Range(config.minAdditionalToSpawnSide, config.maxAdditionalToSpawnSide);
+            int randomValue = Random.Range(0, 100);
+            var spawnTimes = randomValue <= config.chaneToSpawnDoubleAsteroid ? 2 : 1;
 
-            switch (currentSide)
+            for (int i = 0; i < spawnTimes; i++)
             {
-                case 0:
-                    Debug.Log($"Spawning at top");
-                    Instantiate(asteroidPrefabs[Random.Range(0, asteroidPrefabs.Count)],
-                        new Vector3(topSpawnPoint.position.x + additionalRange, topSpawnPoint.position.y, 0),
-                        Quaternion.identity);
-                    break;
+                var currentSide = Random.Range(0, 4);
+                var additionalRange = Random.Range(config.minAdditionalToSpawnSide, config.maxAdditionalToSpawnSide);
 
-                case 1:
-                    Debug.Log($"Spawning at left");
-                    Instantiate(asteroidPrefabs[Random.Range(0, asteroidPrefabs.Count)],
-                        new Vector3(leftSpawnPoint.position.x, leftSpawnPoint.position.y + additionalRange, 0),
-                        Quaternion.identity);
-                    break;
+                switch (currentSide)
+                {
+                    case 0:
+                        Debug.Log($"Spawning at top");
+                        Instantiate(config.possibleAsteroids[Random.Range(0, config.possibleAsteroids.Count)],
+                            new Vector3(topSpawnPoint.position.x + additionalRange, topSpawnPoint.position.y, 0),
+                            Quaternion.identity);
+                        break;
 
-                case 2:
-                    Debug.Log($"Spawning at bottom");
-                    Instantiate(asteroidPrefabs[Random.Range(0, asteroidPrefabs.Count)],
-                        new Vector3(bottomSpawnPoint.position.x + additionalRange, bottomSpawnPoint.position.y, 0),
-                        Quaternion.identity);
-                    break;
+                    case 1:
+                        Debug.Log($"Spawning at left");
+                        Instantiate(config.possibleAsteroids[Random.Range(0, config.possibleAsteroids.Count)],
+                            new Vector3(leftSpawnPoint.position.x, leftSpawnPoint.position.y + additionalRange, 0),
+                            Quaternion.identity);
+                        break;
 
-                case 3:
-                    Debug.Log($"Spawning at right");
-                    Instantiate(asteroidPrefabs[Random.Range(0, asteroidPrefabs.Count)],
-                        new Vector3(rightSpawnPoint.position.x, rightSpawnPoint.position.y + additionalRange, 0),
-                        Quaternion.identity);
-                    break;
+                    case 2:
+                        Debug.Log($"Spawning at bottom");
+                        Instantiate(config.possibleAsteroids[Random.Range(0, config.possibleAsteroids.Count)],
+                            new Vector3(bottomSpawnPoint.position.x + additionalRange, bottomSpawnPoint.position.y, 0),
+                            Quaternion.identity);
+                        break;
+
+                    case 3:
+                        Debug.Log($"Spawning at right");
+                        Instantiate(config.possibleAsteroids[Random.Range(0, config.possibleAsteroids.Count)],
+                            new Vector3(rightSpawnPoint.position.x, rightSpawnPoint.position.y + additionalRange, 0),
+                            Quaternion.identity);
+                        break;
+                }
             }
         }
 
         protected override void Unsubscribe()
         {
-            GameController.PlanetController.PlanetDestroyEven -= StopSpawningAsteroids;
-            
+            GameController.planetController.PlanetDestroyEven -= StopSpawningAsteroids;
+
             base.Unsubscribe();
         }
     }

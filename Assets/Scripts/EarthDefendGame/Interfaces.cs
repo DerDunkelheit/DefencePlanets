@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EarthDefendGame
 {
@@ -23,5 +24,12 @@ namespace EarthDefendGame
     public interface IShooting
     {
         void Shoot();
+    }
+    
+    public interface IText
+    {
+        Queue<string> Phrases { get; }
+        event Action PhrasesEndedEvent;
+        string TryGetNextPhrase();
     }
 }
